@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "name": "dungeoneer-io-ui",
+  "public": false,
+  "github": {
+    "enabled": true
+  },
+  "builds": [
+    { "src": "package.json", "use": "@now/static-build", "config": { "distDir": "public" } },
+    { "src": "server/server.js", "use": "@now/node-server" }
+  ],
+  "routes": [
+    { "src": "/api/.*", "dest": "/server/server.js" },
+    { "src": "^/dist/(.*)", "dest": "/dist/$1" },
+    { "src": "^/images/(.*)", "dest": "/images/$1" },
+    { "src": ".*", "dest": "/index.html" }
+  ],
+  "env": {
+    "MONGO_CONNECTION_STRING": "@prod-mongo-con-string",
+    "DEV_MONGO_CONNECTION_STRING": "@dev-mongo-con-string",
+    "CLOUD_DEPLOYED": "true"
+  }
+}
